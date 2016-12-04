@@ -48,7 +48,7 @@ let makeResponse =
 
 let elizaHandler = request (fun req -> 
   let question = parseRequest req
-  let answer = "You said " + question.Text
+  let answer = "Did you really say " + question.Text + "?"
   Successful.OK(makeResponse answer) )
 
 let app = 
