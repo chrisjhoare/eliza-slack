@@ -76,7 +76,7 @@ let sha512Handler =
 
 let app = 
   choose [
-    POST >=> path "/sha512" >=> sha512Handler 
+    POST >=> path "/sha512" >=> Writers.addHeader "Content-type" "application/json" >=> sha512Handler 
     Successful.OK "running" ]
 (*
 type SlackEvent = JsonProvider<"""{
