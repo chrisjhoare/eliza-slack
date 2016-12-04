@@ -23,6 +23,50 @@ let root = IO.Path.GetFullPath(IO.Path.Combine(asm, "..", "web"))
 // Loading content
 // --------------------------------------------------------------------------------------
 
+type SlackRequest =
+    {
+        Token       : string
+        TeamId      : string
+        TeamDomain  : string
+        ChannelId   : string
+        ChannelName : string
+        UserId      : string
+        UserName    : string
+        Command     : string
+        Text        : string
+        ResponseUrl : string
+    }
+    static member FromHttpContext (ctx : HttpContext) =
+        let get key =
+            match ctx.request.formData key with
+            | Choice1Of2 x  -> x
+            | _             -> ""
+        {
+            Token       = get "token"
+            TeamId      = get "team_id"
+            TeamDomain  = get "team_domain"
+            ChannelId   = get "channel_id"
+            ChannelName = get "channel_name"
+            UserId      = get "user_id"
+            UserName    = get "user_name"
+            Command     = get "command"
+            Text        = get "text"
+            ResponseUrl = get "response_url"
+        }
+
+let sha512 (text : string) =
+    "Ping " + text
+
+let sha512Handler =
+    fun (ctx : HttpContext) ->
+        (SlackRequest.FromHttpContext ctx
+        |> fun req ->
+            req.Text
+            |> sha512
+            |> Successful.OK) ctx
+
+let app = POST >=> path "/sha512" >=> sha512Handler
+(*
 type SlackEvent = JsonProvider<"""{
     "type": "url_verification" }""">
 
@@ -48,3 +92,4 @@ let app = request (fun r ->
       handleSlackEvent body)
     path "/" >=> Successful.OK "running"
     Files.browse root ] )
+    *)
