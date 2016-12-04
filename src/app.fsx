@@ -43,7 +43,7 @@ let app = request (fun r ->
   printfn "-----------------------\n%A" r
   choose [
     POST >=> request (fun r ->
-      let body = Text.UTF32Encoding.UTF8.GetString(ctx.request.rawForm)
+      let body = Text.UTF32Encoding.UTF8.GetString(r.rawForm)
       handleSlackEvent body)
     path "/" >=> Successful.OK "running"
     Files.browse root ] )
