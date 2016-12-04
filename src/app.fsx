@@ -65,7 +65,10 @@ let sha512Handler =
             |> sha512
             |> Successful.OK) ctx
 
-let app = POST >=> path "/sha512" >=> sha512Handler
+let app = 
+  choose [
+    POST >=> path "/sha512" >=> sha512Handler 
+    Successful.OK "running" ]
 (*
 type SlackEvent = JsonProvider<"""{
     "type": "url_verification" }""">
