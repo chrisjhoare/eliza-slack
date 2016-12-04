@@ -1,1 +1,94 @@
-<h1>Yo</h1>
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Moon Bot: Cortana's stupid little brother</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-2.1.4.js" 
+    integrity="sha256-siFczlgw4jULnUICcdm9gjQPZkw/YPDqhQ9+nAOScE4=" crossorigin="anonymous"></script>  
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    
+  <style>
+    @import url(http://fonts.googleapis.com/css?family=Inconsolata|Kreon:300,400,700|Roboto:400,700,400italic);
+    body {
+      background:#303032;
+      font-family:Roboto;
+      color:#e0e0e0;
+      font-size:19pt;
+    }
+    h1 {
+      font:700 60pt Kreon;
+      padding-right:50px;
+      color:#A6201D;
+      text-shadow: 2px 0 0 #D6C000, -2px 0 0 #D6C000, 0 2px 0 #D6C000, 0 -2px 0 #D6C000, 1px 1px #D6C000, -1px -1px 0 #D6C000, 1px -1px 0 #D6C000, -1px 1px 0 #D6C000;
+    }
+    input {
+      font-size:20pt;
+      border:2px solid #808080;
+      padding:6px;
+      width:90%;
+      color:#d0d0d0;
+      background:#404040;
+    }
+    p {
+      color:#a8a8a8;
+      margin-bottom:15px;
+    }
+    .eliza { 
+      color:#f8f8f8;
+    }
+    .space {
+      margin:20px 0px 20px 0px;
+    }
+    img {
+      width:300px;
+    }
+    a {
+      color:#d0d0d0;
+    }
+    a:hover {
+      color:white;
+    }
+    ::-webkit-input-placeholder { color: #585858; } 
+    :-moz-placeholder { color: #585858; } 
+    ::-moz-placeholder { color: #585858; }
+    :-ms-input-placeholder { color: #585858; }
+  </style>
+  <script type="text/javascript">
+    function update() {
+      var q = $("#query").val();
+      $("#query").val("");
+      var r = {url:"eliza", method:"POST"}
+      r.data=
+        "token=test\nteam_id=T0001\nteam_domain=example\n" +
+        "channel_id=C2147483705\nchannel_name=test\nuser_id=U2147483697\n" +
+        "user_name=Steve\ncommand=/eliza\ntext=" + q + "\n"+
+        "response_url=https://hooks.slack.com/commands/1234/5678";
+      $.ajax(r).done(function(res) {
+        $("#out").append($("<p><strong>You</strong>: " + q + "</p>"))
+        $("#out").append($("<p class='eliza'><strong>Eliza</strong>: " + res.text + "</p>"))
+      });
+      return false;
+    }
+  </script>
+</head>
+<body>
+  <div class="container"><div class="row">
+    <div class="col-md-12 space">
+      <h1>Eliza: F# Psycho Bot</h1>  
+    </div>
+  </div></div>
+  <div class="container"><div class="row">
+    <div class="col-md-8 space">
+      <div id="out">
+        <p class="eliza"><strong>Eliza</strong>: Hello, I'm Eliza, your automatic psychotherapist. How do are you feeling today?</p>
+      </div>
+      <form id="frm" onsubmit="return update();" class="space">
+        <input type="text" autocomplete="off" name="query" placeholder="Your reply..." id="query" />
+      </form>
+    </div><div class="col-md-4 space">
+      <img src="marvin.png" />
+    </div>
+  </div></div>
+</body>
+</html>
