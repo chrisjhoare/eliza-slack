@@ -55,7 +55,16 @@ type SlackRequest =
         }
 
 let sha512 (text : string) =
-    "> " + text + "\n\nReply"
+    """
+    {
+    "response_type": "in_channel",
+    "text": "It's 80 degrees right now.",
+    "attachments": [
+        {
+            "text":"Partly cloudy today and tomorrow"
+        }
+    ]
+    }"""
 
 let sha512Handler =
     fun (ctx : HttpContext) ->
