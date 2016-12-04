@@ -11,11 +11,17 @@ open Suave.Filters
 open Suave.Operators
 open FSharp.Data
 
+// The current directory - this is __SOURCE_DIRECTORY__ when running locally
+// using F# interactive and the directory of the current assembly when
+// running as compiled application in Azure (yeah, this is ugly, ignore it :-))
 let asm, debug = 
   if System.Reflection.Assembly.GetExecutingAssembly().IsDynamic then __SOURCE_DIRECTORY__, true
   else IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), false
 let root = IO.Path.GetFullPath(IO.Path.Combine(asm, "..", "web"))
 
+
+// Parse Slack requests - when Slack calls us, it gives us various info as form data
+// (from https://dusted.codes/creating-a-slack-bot-with-fsharp-and-suave-in-less-than-5-minutes)
 type SlackRequest =
   { Token : string
     TeamId : string
@@ -44,13 +50,22 @@ let parseRequest (req:HttpRequest) =
     Text = get "text"
     ResponseUrl = get "response_url" }
 
+// We respond with JSON document that contains the answer text. The 'in_channel' type
+// specifies that the message will be visible as ordinary message in the channel
 let makeResponse =
   sprintf "{ \"response_type\": \"in_channel\", \"text\": \"%s\" }" 
 
+open Part1
+open Part2
+open Part3
+open Part4
+
 let elizaHandler = request (fun req -> 
   let question = parseRequest req
-  let answer = Part4.getAnswer Part2.phrases (Part4.getInput question.Text)
-  Successful.OK(makeResponse answer.Value) )
+  let answer = "You said '" + question.Text + "'. Are you sure?"
+  // TODO: Let Eliza answer the query!
+  // (use 'getAnswer' function as you did in '4_Eliza.fsx')
+  Successful.OK(makeResponse answer) )
 
 let app = 
   choose [
