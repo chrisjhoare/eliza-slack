@@ -55,7 +55,7 @@ type SlackRequest =
         }
 
 let sha512 (text : string) =
-    "Ping " + text
+    "> " + text + "\n\nReply"
 
 let sha512Handler =
     fun (ctx : HttpContext) ->
