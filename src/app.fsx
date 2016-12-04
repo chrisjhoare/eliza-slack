@@ -1,5 +1,6 @@
 #if INTERACTIVE
 #r "../packages/Suave/lib/net40/Suave.dll"
+#load "4_Eliza.fsx"
 #else
 module Eliza
 #endif
@@ -48,8 +49,8 @@ let makeResponse =
 
 let elizaHandler = request (fun req -> 
   let question = parseRequest req
-  let answer = "Did you really say " + question.Text + "?"
-  Successful.OK(makeResponse answer) )
+  let answer = Part4.getAnswer Part2.phrases (Part4.getInput question.Text)
+  Successful.OK(makeResponse answer.Value) )
 
 let app = 
   choose [

@@ -1,0 +1,6 @@
+[ 
+    { "question" : "How are you?",
+      "answers" : [ "I'm fine.", "Not so bad.", "Could be worse."] },
+    { "question" : "It's quite cold today, isn't it?",
+      "answers" : [ "Yes, it's freezing.", "Yes, but at least it's not raining.", "Yes, but OK for December."] }
+]
