@@ -32,6 +32,7 @@ type SlackHandshake = JsonProvider<"""{
     "type": "url_verification" }""">
 
 let handleSlackEvent json =
+  printfn "SLACK MESSAGE!\n%s" json
   match SlackEvent.Parse(json).Type with
   | "url_verification" ->
       Writers.addHeader "Content-type" "application/x-www-form-urlencoded"
