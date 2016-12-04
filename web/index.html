@@ -59,11 +59,7 @@
       var q = $("#query").val();
       $("#query").val("");
       var r = {url:"eliza", method:"POST"}
-      r.data=
-        "token=test\nteam_id=T0001\nteam_domain=example\n" +
-        "channel_id=C2147483705\nchannel_name=test\nuser_id=U2147483697\n" +
-        "user_name=Steve\ncommand=/eliza\ntext=" + q + "\n"+
-        "response_url=https://hooks.slack.com/commands/1234/5678";
+      r.data = "text=" + q;
       $.ajax(r).done(function(res) {
         $("#out").append($("<p><strong>You</strong>: " + q + "</p>"))
         $("#out").append($("<p class='eliza'><strong>Eliza</strong>: " + res.text + "</p>"))

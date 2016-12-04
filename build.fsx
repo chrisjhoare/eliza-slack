@@ -85,7 +85,7 @@ Target "run" (fun _ ->
   let _, server = startWebServerAsync (getLocalServerConfig port) app
 
   // Start Suave to host it on localhost
-  let sources = { BaseDirectory = __SOURCE_DIRECTORY__; Includes = [ "*.fs*" ]; Excludes = [] }
+  let sources = { BaseDirectory = __SOURCE_DIRECTORY__ </> "src"; Includes = [ "*.fs*" ]; Excludes = [] }
   reloadAppServer sources
   Async.Start(server)
 

@@ -1,8 +1,5 @@
 #if INTERACTIVE
-#I "../packages"
-#r "Suave/lib/net40/Suave.dll"
-#r "FSharp.Data/lib/net40/FSharp.Data.dll"
-#r "Newtonsoft.Json/lib/net40/Newtonsoft.Json.dll"
+#r "../packages/Suave/lib/net40/Suave.dll"
 #else
 module Eliza
 #endif
@@ -11,7 +8,6 @@ open Suave
 open System
 open Suave.Filters
 open Suave.Operators
-open Newtonsoft.Json
 open FSharp.Data
 
 let asm, debug = 
