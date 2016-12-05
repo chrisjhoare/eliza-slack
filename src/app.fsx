@@ -62,7 +62,8 @@ open Part4
 
 let elizaHandler = request (fun req -> 
   let question = parseRequest req
-  let answer = "You said '" + question.Text + "'. Are you sure?"
+  let answer = getAnswer question phrases
+  
   // TODO: Let Eliza answer the query!
   // (use 'getAnswer' function as you did in '4_Eliza.fsx')
   Successful.OK(makeResponse answer) )
